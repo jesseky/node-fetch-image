@@ -4,7 +4,7 @@ Node.js编写的图片抓取代码，力求以最简洁的代码，编写出相�
 
 ## 支持站点：
 
-- qbyhx https://qingbuyaohaixiu.com/
+- qbyhx: qingbuyaohaixiu.com
 
 ## 依赖Package：
 
