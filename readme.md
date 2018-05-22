@@ -4,17 +4,23 @@ Node.js编写的图片抓取代码，力求以最简洁的代码，编写出相�
 
 ## 支持站点：
 
-- qbyhx: qingbuyaohaixiu.com
+- `qbyhx`: `qingbuyaohaixiu.com`
+- `dbmn`: `www.dbmeinv.com`
 
 ## 依赖Package：
 
 > node-fetch
 > cheerio
 
+npm install node-fetch cheerio
+
 
 ## 使用方法：
 
-1. node fetch site
+1. node fetch site 
+2. node fetch site 1
+3. node fetch site 1 5
+
 
 ### License
 

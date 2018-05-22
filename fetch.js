@@ -1,27 +1,25 @@
 const fetchImage = require('./fetch-image');
+const sites = require('./fetch-sites');
 
+// 开始执行
 (async () => {
     let site = process.argv.length > 2 ? process.argv[2] : '';
     let fromTo = process.argv.slice(3).map(n => parseInt(n)).filter(n => !isNaN(n)); // 从命令行参数获取from to
-    let sites = {
-        qbyhx: {
-            url: "https://qingbuyaohaixiu.com/page/%s", // 带有%s或%d来生成每一页网址
-            from: fromTo.length > 0 ? fromTo[0] : 1,
-            to: fromTo.length > 1 ? fromTo[1] : {
-                find: '.page-numbers',
-                match: /\d+/
-            }, // 传递一个 {find, match} 对象，则自动获取最后一页
-            query: '.wp-post-image',
-            source: s => s.replace(/-\d+x\d+/, ''), // source 为 提取原图函数
-            saveto: f => `../../data/qbyhx/${f.match(/[^\/]*$/)[0]}` // saveto 为 网址转换成图片路径
-        }
-    };
     if (!site) {
         return console.log("usage node fetch site");
     } else if (!sites[site]) {
         return console.log(`site ${site} is not set, avaliable sites: [${Object.keys(sites)}]`);
     }
-    await fetchImage(sites[site]);
+    let conf = sites[site]; // 获取配置
+    if (fromTo.length) {
+        conf.from = fromTo[0]; // 设置起始页
+    }
+    if (fromTo.length > 1) {
+        conf.to = fromTo[1]; // 设置终止页
+    }
+    RegExp.prototype.toJSON = RegExp.prototype.toString; // or function () { return this.source; }; 
+    console.log("\nsite: %s, from: %s, to: %s\n", site, conf.from, JSON.stringify(conf.to));
+    await fetchImage(conf);
 })();
 
 // 依赖：npm install -g node-fetch cheerio
